@@ -25,11 +25,6 @@ jobs:
 
     - name: Generate Wrapper & Build APK
       run: |
-        # যদি রুট ডিরেক্টরিতে settings.gradle না থাকে, তবে সাবফোল্ডার খুঁজে নিয়ে সেখানে বিল্ড করবে
-        BUILD_DIR=$(find . -maxdepth 2 -name "settings.gradle*" -exec dirname {} \;)
-        if [ -n "$BUILD_DIR" ]; then
-          cd "$BUILD_DIR"
-        fi
         gradle wrapper
         chmod +x gradlew
         ./gradlew assembleDebug
@@ -38,4 +33,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: '**/build/outputs/apk/debug/app-debug.apk'
+        path: app/build/outputs/apk/debug/app-debug.apk
